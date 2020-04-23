@@ -23,9 +23,9 @@ WORKDIR /var/www/html
 RUN apt-get update -y \
     && apt-get upgrade -y \ 
     && apt-get autoremove -y \
-    && apt-get install -y curl nano libpng-dev libfreetype6-dev libjpeg62-turbo-dev \
+    && apt-get install -y curl nano libpng-dev libbz2-dev libfreetype6-dev libjpeg62-turbo-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/  \
-    && docker-php-ext-install pdo_mysql mysqli mbstring zip gd \
+    && docker-php-ext-install  pdo_mysql mysqli mbstring gd zip exif pcntl \
     && curl --silent --show-error https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 

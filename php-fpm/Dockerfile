@@ -1,33 +1,27 @@
-FROM php:7.2-fpm
+FROM php:7.3-fpm
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \
-    curl
+RUN apt-get update -y \
+    && apt-get upgrade -y \ 
+    && apt-get autoremove -y \
+    && apt-get install -y curl nano libzip-dev libbz2-dev libpng-dev libfreetype6-dev libjpeg62-turbo-dev \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/  \
+    && docker-php-ext-install pdo_mysql mysqli mbstring gd bz2 zip exif pcntl \
+    && curl --silent --show-error https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
-RUN docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
-RUN docker-php-ext-install gd
+# libjpeg62-turbo-dev 
+# RUN docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
+# RUN docker-php-ext-install gd 
 
-COPY code/ /var/www/html/
+# COPY code/ /var/www/html/
 
-COPY code/.env.prod /var/www/html/.env
+# COPY code/.env.prod /var/www/html/.env
 
 EXPOSE 9000
 CMD ["php-fpm"]

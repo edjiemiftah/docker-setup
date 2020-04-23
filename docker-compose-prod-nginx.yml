@@ -17,13 +17,13 @@ services:
             - nginx_laravel
 
     php:
-        image: sholihin/sistore-php-fpm7.2
+        image: sholihin/php-fpm:php73-sistore
         container_name: cn_sistoreid
         restart: always
         depends_on:
             - mysql
         volumes:
-            - laravel_code:/var/www/html
+            - ./laravel_code:/var/www/html
         networks:
             - nginx_laravel
 
@@ -53,9 +53,10 @@ services:
             - "80:80"
             - "443:443"
         volumes:
-            - laravel_code:/var/www/html
+            - ./laravel_code:/var/www/html
             - ./ssl:/etc/ssl/private
             - ./conf.d:/etc/nginx/conf.d
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
         networks: 
             - nginx_laravel
 networks:
@@ -63,5 +64,5 @@ networks:
         driver: bridge
 
 volumes:
-    laravel_code:
+    # laravel_code:
     mysql_data:
