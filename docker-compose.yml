@@ -14,6 +14,8 @@ services:
         volumes:
             - mysql_data:/var/lib/mysql
             # - ./mysql_data:/var/lib/mysql:delegated
+        ports: 
+            - "3300:3306"
         networks:
             - nginx_laravel
 
@@ -24,8 +26,8 @@ services:
         depends_on:
             - mysql
         volumes:
-            - ./code:/var/www/html:delegated
-            - ./php-fpm/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:cached
+            - ./laravel_code:/var/www/html
+            - ./php-fpm/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
         networks:
             - nginx_laravel
 
@@ -55,11 +57,10 @@ services:
             - "80:80"
             - "443:443"
         volumes:
-            - ./code:/var/www/html:delegated
-            # - ./code:/var/www/html:cached
-            - ./ssl:/etc/ssl/private:cached
-            - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:cached
-            - ./nginx/nginx.conf:/etc/nginx/nginx.conf:cached
+            - ./laravel_code:/var/www/html
+            - ./ssl:/etc/ssl/private
+            - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
         networks: 
             - nginx_laravel
 networks:
