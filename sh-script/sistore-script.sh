@@ -52,7 +52,7 @@ do
             docker exec -i cn_mysql_sistore sh -c "exec mysql -uroot -proot $vardomain" < ./masterdb_sistore_for_client.sql
             docker exec -i cn_mysql_sistore mysql -uroot -proot -e 'use `'$vardomain'`;' -e 'UPDATE admins SET email = "'$email'";'
             docker exec -i cn_mysql_sistore mysql -uroot -proot -e 'use sistoreid_db; INSERT INTO domain VALUES (NULL, "'$vardomain'", "'$vardomain'", "'$email'", "'$paket'", "'1'", NOW(), NULL);'
-            curl http://sishop.com/g3n3r4t3-d0m41n/$email/$vardomain
+            curl http://157.230.36.51/g3n3r4t3-d0m41n/$email/$vardomain
             echo "$vardomain" >> domain.txt
             echo "$vardomain" >> database.txt
             echo "Domain $vardomain insert done \n"
@@ -163,7 +163,7 @@ do
             clear
             echo "Please insert domain name: "
             read vardomain
-            curl http://sishop.com/r3s3t-p455w0rd/$vardomain
+            curl http://157.230.36.51/r3s3t-p455w0rd/$vardomain
             break
             ;;
         "DNS Record WITH MX Record")
