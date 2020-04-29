@@ -1,0 +1,38 @@
+;;
+;; Domain:     sistore.com.
+;; Exported:   2020-04-29 04:18:34
+;;
+;; This file is intended for use for informational and archival
+;; purposes ONLY and MUST be edited before use on a production
+;; DNS server.  In particular, you must:
+;;   -- update the SOA record with the correct authoritative name server
+;;   -- update the SOA record with the contact e-mail address information
+;;   -- update the NS record(s) with the authoritative name servers for this domain.
+;;
+;; For further information, please consult the BIND documentation
+;; located on the following website:
+;;
+;; http://www.isc.org/
+;;
+;; And RFC 1035:
+;;
+;; http://www.ietf.org/rfc/rfc1035.txt
+;;
+;; Please note that we do NOT offer technical support for any use
+;; of this zone data, the BIND name server, or any other third-party
+;; DNS software.
+;;
+;; Use at your own risk.
+;; SOA Record
+sistore.com.	3600	IN	SOA	sistore.com. root.sistore.com. 2033980051 7200 3600 86400 3600
+
+;; A Records
+*.sistore.com.	1	IN	A	157.230.36.51
+sistore.com.	1	IN	A	157.230.36.51
+
+;; MX Records
+sistore.com.	1	IN	MX	10 alt4.aspmx.l.google.com.
+sistore.com.	1	IN	MX	10 alt3.aspmx.l.google.com.
+sistore.com.	1	IN	MX	5 alt2.aspmx.l.google.com.
+sistore.com.	1	IN	MX	5 alt1.aspmx.l.google.com.
+sistore.com.	1	IN	MX	1 aspmx.l.google.com.
