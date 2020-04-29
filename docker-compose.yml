@@ -24,7 +24,7 @@ services:
         depends_on:
             - mysql
         volumes:
-            - ./code:/var/www/html:delegated
+            - ./laravel_code:/var/www/html:delegated
             - ./php-fpm/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:cached
         networks:
             - nginx_laravel
@@ -55,8 +55,8 @@ services:
             - "80:80"
             - "443:443"
         volumes:
-            - ./code:/var/www/html:delegated
-            # - ./code:/var/www/html:cached
+            - ./laravel_code:/var/www/html:delegated
+            # - ./laravel_code:/var/www/html:cached
             - ./ssl:/etc/ssl/private:cached
             - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:cached
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf:cached
