@@ -1,15 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
 getArray() {
-    array=() # Create array
-    while IFS= read -r line # Read a line
+    array=()
+    while IFS= read -r line
     do
-        array+=("$line") # Append line to the array
+        array+=("$line")
     done < "$1"
-}
+};
 
 PS3="Please enter your choice: "
-options=("Insert Domain" "Remove Domain" "Update Database" "Rollback Database" "Export all database" "Import all database" "Reset password" "Quit")
+options=("Insert Domain" "Remove Domain" "Update Database" "Rollback Database" "Export all database" "Import all database" "Reset password" "DNS Record WITH MX Record" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -68,7 +68,7 @@ do
             sed "/$vardomain/d" ./domain.txt > ./tmp.txt
             rm ./domain.txt
             mv ./tmp.txt ./domain.txt
-            echo "Domain $vardomain remove done\n"
+            echo "Domain $vardomain remove done \n"
 
             break
             ;;
@@ -106,7 +106,7 @@ do
         "Import all database")
             clear
             docker exec -i cn_mysql_sistore sh -c "exec mysql -uroot -proot" < ./all-databases.sql
-            
+
             echo "you chose choice $REPLY which is $opt \n"
             echo "Export all database done"
             break
@@ -116,6 +116,16 @@ do
             echo "Please insert domain name: "
             read vardomain
             curl http://sishop.com/r3s3t-p455w0rd/$vardomain
+            break
+            ;;
+        "DNS Record WITH MX Record")
+            clear
+            echo "Please insert domain name: "
+            read vardomain
+            sed "s/sistore.com/$vardomain/g" ./dns.txt > ./dns-$vardomain.txt
+            echo "DNS $vardomain making done \n"
+            cat dns-$vardomain.txt
+
             break
             ;;
         "Quit")
