@@ -12,7 +12,10 @@ services:
             MYSQL_USER: sistore
             MYSQL_PASSWORD: s1st0r3_1d
         volumes:
-            - ./mysql_data:/var/lib/mysql
+            - mysql_data:/var/lib/mysql
+            # - ./mysql_data:/var/lib/mysql:delegated
+        ports: 
+            - "3300:3306"
         networks:
             - nginx_laravel
 
