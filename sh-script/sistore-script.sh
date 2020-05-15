@@ -115,11 +115,38 @@ do
                     updated_by int(11) DEFAULT NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+                CREATE TABLE reseller_upgrades (
+                    id tinyint(3) NOT NULL,
+                    name varchar(100) NOT NULL,
+                    max tinyint(5) NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+                CREATE TABLE subscription_history (
+                    id int(11) NOT NULL,
+                    package_id int(11) NOT NULL,
+                    upgrade_id tinyint(3) NOT NULL,
+                    package_name text NOT NULL,
+                    package_description text NOT NULL,
+                    package_price double NOT NULL,
+                    upgrade_name varchar(100) NOT NULL,
+                    max_resellers tinyint(5) NOT NULL,
+                    start_date datetime NOT NULL,
+                    expired_date datetime NOT NULL,
+                    subscriber_name varchar(100) NOT NULL,
+                    subscriber_contact varchar(100) NOT NULL,
+                    subscriber_email varchar(100) NOT NULL,
+                    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    updated_at timestamp NULL DEFAULT NULL,
+                    status tinyint(1) NOT NULL DEFAULT '1'
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
                 ALTER TABLE order_details ADD PRIMARY KEY (id);
                 ALTER TABLE returs ADD PRIMARY KEY (id);
                 ALTER TABLE order_details MODIFY id int(11) NOT NULL AUTO_INCREMENT;
                 ALTER TABLE returs MODIFY id int(11) NOT NULL AUTO_INCREMENT;
                 ALTER TABLE generalsettings  ADD is_whatsapp TINYINT(1) NOT NULL DEFAULT '1'  AFTER is_secure,  ADD whatsapp TEXT NULL  AFTER is_whatsapp;
+                ALTER TABLE reseller_upgrades ADD PRIMARY KEY (id);
+                ALTER TABLE subscription_history ADD PRIMARY KEY (id);
                 "
               echo "domain $i update done";
             done
